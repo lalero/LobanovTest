@@ -10,7 +10,7 @@
 namespace global
 {
     QStringList linesFile;
-    QStringList playZone;
+    QStringList shipsZone;
     int errorLength = 0;
 }
 
@@ -36,10 +36,10 @@ void readFile()
     while (!in.atEnd())
     {
         QString line = in.readLine();
-        if (line.length() < 10)
-        {
-            errorLength++;
-        }
+//        if (line.length() < 10)
+//        {
+//            errorLength++;
+//        }
         linesFile.append(line);
     }
 //    qDebug()<<linesFile;
@@ -47,12 +47,13 @@ void readFile()
 
 void checkAndWriteStringList()
 {
-    //setlocale(LC_ALL,"Russian");
 
     int linesSize = linesFile.size();
     int linesSizeEnd = 0;
     int countLine = 0;
-    int countStep = 0;
+    int countLeftUp = 0;
+    int columnError = 0;
+    int flagError = 0;
 
     qDebug()<<"linesSize="<<linesSize;
     qDebug()<<"errorLength="<<errorLength;
@@ -70,24 +71,53 @@ void checkAndWriteStringList()
         {
             if ((linesFile[linesSizeEnd][i]=='0')||(linesFile[linesSizeEnd][i]=='*'))
             {
-
                 countLine++;
+
+                if (countLine == 1)
+                {
+                    countLeftUp = i;
+                    qDebug()<<"countLeftUp="<<countLeftUp;
+                }
+
+
 
                 if (countLine == 10)
                 {
+                    int x=0;
+                    int y=0;
+                    flagError = linesSize - linesSizeEnd;
+                    qDebug()<<"linesSize="<<linesSize;
+                    qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+                    qDebug()<<"flagError="<<flagError;
 
-                    for (int column = 0; column < 10; column++)
+
+
+//                    qDebug()<<"countLine="<<countLine;
+//                    qDebug()<<"countLeftUp="<<countLeftUp;
+                    for (int j = countLeftUp; j < countLeftUp+10; j++)
                     {
-                        if ((linesFile[column][i]=='0')||(linesFile[column][i]=='*'))
+                        for (int line = linesSizeEnd; line < linesSizeEnd+10; line++)
                         {
-
+                            if ((linesFile[line][j]=='0')||(linesFile[line][j]=='*'))
+                            {
+                                shipsZone[x][y]=linesFile[line][j];
+                            }
+                            else
+                            {
+                                columnError++;
+                            }
+                            x++;
                         }
+                        x=0;
+                        y++;
                     }
+                    linesSizeEnd = linesSize-1;
                 }
             }
             else
             {
-                countStep++;
+                countLine=0;
+                countLeftUp=0;
             }
         }
 
@@ -103,8 +133,26 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    int o = 0;
+    while (o<10)
+    {
+        QString x="##########";
+        shipsZone.append(x);
+        o++;
+//        qDebug() << x;
+//        qDebug() << "1";
+    }
+
+
     readFile();
     checkAndWriteStringList();
+
+    int y = 0;
+    while (y<10)
+    {
+        qDebug() << shipsZone[y];
+        y++;
+    }
 
     return a.exec();
 }
