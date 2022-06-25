@@ -86,16 +86,58 @@ void checkAndWriteStringList()
                         //qDebug()<<"countLine="<<countLine;
                     }
 
-
-
-                    //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+                    //                    qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+                    //                    qDebug()<<"linesSize-1="<<linesSize-1;
                     countControl=linesSize-linesSizeEnd;
 
-
+                    //(countLine == 10)
                     if ((countLine == 10)&&(countControl>=9))
                     {
                         int x=0;
                         int y=0;
+                        int pRight=0;
+                        int pRightCount=0;
+                        qDebug()<<"i="<<i;
+                        //qDebug()<<"linesFile[linesSizeEnd].length()-1="<<linesFile[linesSizeEnd].length()-1;
+
+
+                        //qDebug()<<"123456789";
+                        //qDebug()<<"flagError="<<flagError;
+                        int countCheck=linesFile[linesSizeEnd].length()-1;
+
+                        //                                if (i<countCheck)
+                        //                                {
+                        //                                    while (pRight<10)
+                        //                                    {
+                        //                                        for (int k = linesSizeEnd; k < linesSizeEnd+10; k++)
+                        //                                        {
+
+                        //                                            if (i<countCheck)
+                        //                                            {
+
+                        //                                            if (linesFile[k][i+1]!=' ')
+                        //                                            {
+                        //                                                flagError = 1;
+                        //                                                flagError3 = 1;
+                        //                                            }
+
+                        //                                            countCheck=linesFile[linesSizeEnd+1].length()-1;
+                        //                                            }
+                        //                                        }
+                        //                                        pRight++;
+                        //                                    }
+                        //                                }
+                        //                        else
+                        //                            if (linesSize-1 > linesSizeEnd)
+                        //                            {
+                        //                                if (linesFile[linesSizeEnd+10][countLeftUp]!=' ')
+                        //                                {
+                        //                                    flagError = 1;
+                        //                                    flagError3 = 1;
+                        //                                }
+                        //                            }
+                        //                            else
+                        //                           {
 
 
                         //qDebug()<<"linesFile[linesSizeEnd].length()="<<linesFile[linesSizeEnd].length();
@@ -113,7 +155,7 @@ void checkAndWriteStringList()
                         int strNowLength;
                         int z = linesSizeEnd;
                         strNowLength = linesFile[z].length();
-//                        qDebug()<<"strNowLength="<<strNowLength;
+                        //                        qDebug()<<"strNowLength="<<strNowLength;
                         //qDebug()<<"i="<<i;
 
                         //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
@@ -130,123 +172,185 @@ void checkAndWriteStringList()
                         else
                         {
 
-
-                        //int linesStrSize=0;
-                        int k=0;
-                        while (z<linesSizeEnd+10)
-                        {
-                            //qDebug()<<"linesFile[z].length()="<<linesFile[z].length()-1;
-
-                            //linesStrSize = linesFile[z].length();
-
-//                            if (linesStrSize==0)
-//                            {
-//                                linesStrSize = 1;
-//                            }
-
-                            if(linesFile[z].length()-1<i)
+                            int k=0;
+                            while (z<linesSizeEnd+10)
                             {
-                                flagError = 1;
-                                flagError3 = 1;
-                                //linesSizeEnd = linesSize-1;
-                                z = linesSizeEnd+10;
-                            }
-
-                            //k++;
-                            z++;
-                        }
-
-                        //qDebug()<<"k="<<k;
-                        //qDebug()<<"flagError="<<flagError;
-                        //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
-                        //qDebug()<<"countLeftUp="<<countLeftUp;
-
-                        //int u=0;
-                        //int w=0;
-
-                        if (flagError == 0)
-                        {
-                            for (int n = linesSizeEnd; n < linesSizeEnd+10; n++)
-                            {
-                                for (int m = countLeftUp; m < countLeftUp+10; m++)
+                                if(linesFile[z].length()-1<i)
                                 {
-                                    if ((linesFile[n][m]!='0')&&(linesFile[n][m]!='*'))
-                                    {
-                                        //shipsZone[u][w]=linesFile[n][m];
-                                        //w++;
-                                        flagError3 = 1;
-                                    }
+                                    flagError = 1;
+                                    flagError3 = 1;
+                                    //linesSizeEnd = linesSize-1;
+                                    z = linesSizeEnd+10;
                                 }
-                                //w=0;
-                                //u++;
+                                z++;
                             }
-                            //linesSizeEnd = linesSize-1;
-                        }
 
-                        //qDebug()<<"flagError3="<<flagError3;
-
-                        int line = 0;
-                        if (flagError3 == 0)
-                        {
-                            //qDebug()<<"OK";
+                            //qDebug()<<"k="<<k;
+                            //qDebug()<<"flagError="<<flagError;
+                            //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
                             //qDebug()<<"countLeftUp="<<countLeftUp;
 
-                            //for (int j = countLeftUp; j < countLeftUp+10; j++)
-                            //{
+                            //int u=0;
+                            //int w=0;
+
+                            if (flagError == 0)
+                            {
+                                for (int n = linesSizeEnd; n < linesSizeEnd+10; n++)
+                                {
+                                    for (int m = countLeftUp; m < countLeftUp+10; m++)
+                                    {
+                                        if ((linesFile[n][m]!='0')&&(linesFile[n][m]!='*'))
+                                        {
+                                            //shipsZone[u][w]=linesFile[n][m];
+                                            //w++;
+                                            flagError3 = 1;
+                                        }
+                                    }
+                                    //w=0;
+                                    //u++;
+                                }
+                                //linesSizeEnd = linesSize-1;
+                            }
+
+                            k = linesSizeEnd;
+                            int strSize = linesFile[k].length()-1;
+                            qDebug()<<"strSize="<<strSize;
+
+                            //for (int i = 0; i < linesFile[linesSizeEnd].length(); i++)
+                            //if (linesFile[k][i+1]!=' ')
+                            //int a=0;
+
+                            qDebug()<<"countLeftUp="<<countLeftUp;
+                            if (flagError == 0)
+                            {
+                                for (int a = linesSizeEnd; a < linesSizeEnd+10; a++)
+                                {
+//                                    for (int b = countLeftUp; b < countLeftUp+10; b++)
+//                                    {
+                                        int strSize = linesFile[a].length()-1;
+                                        //qDebug()<<"strSize="<<strSize;
+
+                                        if (strSize-countLeftUp!=9)
+                                        {
+                                            if (linesFile[a][countLeftUp+10]!=' ')
+                                            {
+
+                                            qDebug()<<"NOTOKEY";
+                                            flagError = 1;
+                                            flagError3 = 1;
+                                            }
+                                        }
+
+                                        if (countLeftUp!=0)
+                                        {
+                                            if (linesFile[a][countLeftUp-1]!=' ')
+                                            {
+
+                                            qDebug()<<"NOTOKEY";
+                                            flagError = 1;
+                                            flagError3 = 1;
+                                            }
+                                        }
+                                }
+
+                                for (int a = linesSizeEnd; a < linesSizeEnd+10; a++)
+                                {
+
+                                   //Доделать клетка отступ сверху и снизу
+//                                    for (int b = countLeftUp; b < countLeftUp+10; b++)
+//                                    {
+                                        int strSize = linesFile[a].length()-1;
+                                        //qDebug()<<"strSize="<<strSize;
+
+                                        if (strSize-countLeftUp!=9)
+                                        {
+                                            if (linesFile[a][countLeftUp+10]!=' ')
+                                            {
+
+                                            qDebug()<<"NOTOKEY";
+                                            //flagError = 1;
+                                            //flagError3 = 1;
+                                            }
+                                        }
+
+//                                        if (countLeftUp!=0)
+//                                        {
+//                                            if (linesFile[a][countLeftUp-1]!=' ')
+//                                            {
+
+//                                            qDebug()<<"NOTOKEY";
+//                                            flagError = 1;
+//                                            flagError3 = 1;
+//                                            }
+//                                        }
+                                }
+
+                            }
+
+                            //qDebug()<<"flagError3="<<flagError3;
+
+                            int line = 0;
+                            if (flagError3 == 0)
+                            {
+                                //qDebug()<<"OK";
+                                //qDebug()<<"countLeftUp="<<countLeftUp;
+
+                                //for (int j = countLeftUp; j < countLeftUp+10; j++)
+                                //{
                                 int j = countLeftUp;
                                 while (j < countLeftUp+10)
                                 {
 
-                                //for (int line = linesSizeEnd; line < linesSizeEnd+10; line++)
-                                //{
+                                    //for (int line = linesSizeEnd; line < linesSizeEnd+10; line++)
+                                    //{
                                     line = linesSizeEnd;
                                     while (line < linesSizeEnd+10)
                                     {
-                                    //if ((linesFile[line][j]=='0')||(linesFile[line][j]=='*'))
-                                    //{
+                                        //if ((linesFile[line][j]=='0')||(linesFile[line][j]=='*'))
+                                        //{
                                         //qDebug()<<"1111111111111111111";
 
                                         shipsZone[x][y]=linesFile[line][j];
 
-                                    //}
-                                    //else
-                                    //{
+                                        //}
+                                        //else
+                                        //{
 
-//                                        flagError2=1;
-//                                        j = countLeftUp+10;
-//                                        line = linesSizeEnd+10;
-//                                        columnError++;
-                                    //}
-                                    line++;
-                                    x++;
+                                        //                                        flagError2=1;
+                                        //                                        j = countLeftUp+10;
+                                        //                                        line = linesSizeEnd+10;
+                                        //                                        columnError++;
+                                        //}
+                                        line++;
+                                        x++;
                                     }
-                                //}
-                                x=0;
-                                y++;
-                                j++;
+                                    //}
+                                    x=0;
+                                    y++;
+                                    j++;
                                 }
-                            //}
+                                //}
 
-                            //if (i==strNowLength)
+                                //if (i==strNowLength)
 
-                            //qDebug()<<"flagError2="<<flagError2;
+                                //qDebug()<<"flagError2="<<flagError2;
 
-//                            if (flagError2==0)
-//                            {
-                            linesSizeEnd = linesSize-1;
-//                            }
+                                //                            if (flagError2==0)
+                                //                            {
+                                linesSizeEnd = linesSize-1;
+                                //                            }
+
+                            }
+                            else
+                            {
+                                flagError=0;
+                                //flagError2=0;
+                                flagError3=0;
+                            }
+
+                            //                        }
 
                         }
-                        else
-                        {
-                            flagError=0;
-                            //flagError2=0;
-                            flagError3=0;
-                        }
-
-                        }
-
-
                     }
                 }
                 else
