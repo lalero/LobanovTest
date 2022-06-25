@@ -54,6 +54,8 @@ void checkAndWriteStringList()
     int countLeftUp = 0;
     int columnError = 0;
     int flagError = 0;
+    int flagError2 = 0;
+    int flagError3 = 0;
     int countStepDown = 0;
     int lengthNormal = 0;
     int countControl = 0;
@@ -67,59 +69,126 @@ void checkAndWriteStringList()
     }
     else
     {
-        while (linesSize != linesSizeEnd)
+        while (linesSize-1 > linesSizeEnd)
         {
             //qDebug()<<"linesFile[linesSizeEnd].length()="<<linesFile[linesSizeEnd].length();
             for (int i = 0; i < linesFile[linesSizeEnd].length(); i++)
             {
                 if ((linesFile[linesSizeEnd][i]=='0')||(linesFile[linesSizeEnd][i]=='*'))
                 {
+
                     countLine++;
 
                     if (countLine == 1)
                     {
                         countLeftUp = i;
-                        qDebug()<<"countLeftUp="<<countLeftUp;
+
+                        //qDebug()<<"countLine="<<countLine;
                     }
 
-                    if (countLine == 10)
+
+
+                    //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+                    countControl=linesSize-linesSizeEnd;
+
+
+                    if ((countLine == 10)&&(countControl>=9))
                     {
                         int x=0;
                         int y=0;
 
-                        qDebug()<<"linesSize="<<linesSize;
-                        qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+
                         //qDebug()<<"linesFile[linesSizeEnd].length()="<<linesFile[linesSizeEnd].length();
                         //qDebug()<<"flagError="<<flagError;
 
+                        //qDebug()<<"linesSize="<<linesSize;
 
-                        lengthNormal = countLeftUp+9;
+                        //qDebug()<<"countControl="<<countControl;
+
+
+
                         //qDebug()<<"lengthNormal="<<lengthNormal;
                         //qDebug()<<"i="<<i;
 
                         int strNowLength;
                         int z = linesSizeEnd;
                         strNowLength = linesFile[z].length();
-                        qDebug()<<"strNowLength="<<strNowLength;
+//                        qDebug()<<"strNowLength="<<strNowLength;
+                        //qDebug()<<"i="<<i;
+
+                        //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+
+                        //lengthNormal = countLeftUp+9;
+
+                        columnError = linesSize - linesSizeEnd;
+                        //qDebug()<<"columnError="<<columnError;
+
+                        if (columnError<10)
+                        {
+                            linesSizeEnd = linesSize-1;
+                        }
+                        else
+                        {
+
+
+                        //int linesStrSize=0;
+                        int k=0;
                         while (z<linesSizeEnd+10)
                         {
                             //qDebug()<<"linesFile[z].length()="<<linesFile[z].length()-1;
 
+                            //linesStrSize = linesFile[z].length();
+
+//                            if (linesStrSize==0)
+//                            {
+//                                linesStrSize = 1;
+//                            }
+
                             if(linesFile[z].length()-1<i)
                             {
                                 flagError = 1;
-                                linesSizeEnd = linesSize-1;
+                                flagError3 = 1;
+                                //linesSizeEnd = linesSize-1;
                                 z = linesSizeEnd+10;
                             }
 
+                            //k++;
                             z++;
                         }
 
-                        qDebug()<<"flagError="<<flagError;
+                        //qDebug()<<"k="<<k;
+                        //qDebug()<<"flagError="<<flagError;
+                        //qDebug()<<"linesSizeEnd="<<linesSizeEnd;
+                        //qDebug()<<"countLeftUp="<<countLeftUp;
+
+                        //int u=0;
+                        //int w=0;
 
                         if (flagError == 0)
                         {
-                            //qDebug()<<"countLine="<<countLine;
+                            for (int n = linesSizeEnd; n < linesSizeEnd+10; n++)
+                            {
+                                for (int m = countLeftUp; m < countLeftUp+10; m++)
+                                {
+                                    if ((linesFile[n][m]!='0')&&(linesFile[n][m]!='*'))
+                                    {
+                                        //shipsZone[u][w]=linesFile[n][m];
+                                        //w++;
+                                        flagError3 = 1;
+                                    }
+                                }
+                                //w=0;
+                                //u++;
+                            }
+                            //linesSizeEnd = linesSize-1;
+                        }
+
+                        //qDebug()<<"flagError3="<<flagError3;
+
+                        int line = 0;
+                        if (flagError3 == 0)
+                        {
+                            //qDebug()<<"OK";
                             //qDebug()<<"countLeftUp="<<countLeftUp;
 
                             //for (int j = countLeftUp; j < countLeftUp+10; j++)
@@ -130,20 +199,24 @@ void checkAndWriteStringList()
 
                                 //for (int line = linesSizeEnd; line < linesSizeEnd+10; line++)
                                 //{
-                                    int line = linesSizeEnd;
+                                    line = linesSizeEnd;
                                     while (line < linesSizeEnd+10)
                                     {
-                                    if ((linesFile[line][j]=='0')||(linesFile[line][j]=='*'))
-                                    {
+                                    //if ((linesFile[line][j]=='0')||(linesFile[line][j]=='*'))
+                                    //{
                                         //qDebug()<<"1111111111111111111";
+
                                         shipsZone[x][y]=linesFile[line][j];
-                                    }
-                                    else
-                                    {
-                                        line = linesSizeEnd+10;
-                                        j = countLeftUp+10;
-                                        //columnError++;
-                                    }
+
+                                    //}
+                                    //else
+                                    //{
+
+//                                        flagError2=1;
+//                                        j = countLeftUp+10;
+//                                        line = linesSizeEnd+10;
+//                                        columnError++;
+                                    //}
                                     line++;
                                     x++;
                                     }
@@ -156,9 +229,24 @@ void checkAndWriteStringList()
 
                             //if (i==strNowLength)
 
+                            //qDebug()<<"flagError2="<<flagError2;
+
+//                            if (flagError2==0)
+//                            {
                             linesSizeEnd = linesSize-1;
+//                            }
 
                         }
+                        else
+                        {
+                            flagError=0;
+                            //flagError2=0;
+                            flagError3=0;
+                        }
+
+                        }
+
+
                     }
                 }
                 else
@@ -167,7 +255,12 @@ void checkAndWriteStringList()
                     countLeftUp=0;
                 }
             }
+            countLeftUp=0;
+            countLine=0;
+
             flagError=0;
+            //flagError2=0;
+            flagError3=0;
             countControl=0;
             linesSizeEnd++;
         }
