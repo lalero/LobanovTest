@@ -11,6 +11,9 @@ namespace global
 {
 QStringList linesFile;
 QStringList shipsZone;
+QStringList allShips;
+QStringList greenShips;
+QStringList redShips;
 }
 
 using namespace global;
@@ -379,6 +382,186 @@ void checkAndWriteStringList()
     }
 }
 
+void checkingShips()
+{
+    //QStringList shipsZone;
+    //QStringList allShips;
+
+    QString usedPointsShips="";
+
+    QString allPointsShips="";
+
+    int countChecksPoints=0;
+    int line = 0;
+    int column = 0;
+
+    //for (int line = 0; line < 10; line++)
+    while (line < 10)
+    {
+        column = 0;
+        while (column < 10)
+        {
+            if (shipsZone[line][column]=='*')
+            {
+                QString str1 = QString::number(line);
+                QString str2 = QString::number(column);
+                allPointsShips = allPointsShips+str1+str2;
+                countChecksPoints++;
+
+            }
+            column++;
+        }
+        line++;
+    }
+
+    //while (line < 10)
+
+    qDebug()<<"allPointsShips="<<allPointsShips;
+    qDebug()<<"allPointsShips.size()="<<allPointsShips.size();
+    qDebug()<<"countChecksPoints="<<countChecksPoints;
+
+    QString Ship="";
+
+    int countChecksShips=0;
+    int i = 0;
+    //int j = 0;
+    QString lineStr;
+    QString columnStr;
+    int errorRadiusCheck=0;
+    int intLineRadiusStep=0;
+    int intColumnRadiusStep=0;
+
+    while (allPointsShips.size()!=0)
+    {
+        lineStr = allPointsShips[i];
+        columnStr = allPointsShips[i+1];
+
+        int lineInt = lineStr.toInt();
+        int columnInt = columnStr.toInt();
+
+        qDebug()<<"lineInt="<<lineInt;
+        qDebug()<<"columnInt="<<columnInt;
+
+        qDebug()<<shipsZone[0][3];
+
+        while (errorRadiusCheck==0)
+        {
+//        if ((shipsZone[lineInt-1][columnInt-1] == '*') ||
+//                (shipsZone[lineInt-1][columnInt] == '*') ||
+//                (shipsZone[lineInt-1][columnInt+1] == '*') ||
+//                (shipsZone[lineInt][columnInt-1] == '*') ||
+//                (shipsZone[lineInt][columnInt+1] == '*') ||
+//                (shipsZone[lineInt+1][columnInt-1] == '*') ||
+//                (shipsZone[lineInt+1][columnInt] == '*') ||
+//                (shipsZone[lineInt+1][columnInt+1] == '*'))
+
+            if (shipsZone[lineInt-1][columnInt-1] == '*')
+            {
+                intLineRadiusStep = lineInt-1;
+                intColumnRadiusStep = columnInt-1;
+                shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+            }
+            else
+                if (shipsZone[lineInt-1][columnInt] == '*')
+                {
+                    intLineRadiusStep = lineInt-1;
+                    intColumnRadiusStep = columnInt;
+                    shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                }
+                else
+                    if (shipsZone[lineInt-1][columnInt+1] == '*')
+                    {
+                        intLineRadiusStep = lineInt-1;
+                        intColumnRadiusStep = columnInt+1;
+                        shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                    }
+                    else
+                        if (shipsZone[lineInt][columnInt-1] == '*')
+                        {
+                            intLineRadiusStep = lineInt;
+                            intColumnRadiusStep = columnInt-1;
+                            shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                        }
+                        else
+                            if (shipsZone[lineInt][columnInt+1] == '*')
+                            {
+                                intLineRadiusStep = lineInt;
+                                intColumnRadiusStep = columnInt+1;
+                                shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                            }
+                            else
+                                if (shipsZone[lineInt+1][columnInt-1] == '*')
+                                {
+                                    intLineRadiusStep = lineInt+1;
+                                    intColumnRadiusStep = columnInt-1;
+                                    shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                                }
+                                else
+                                    if (shipsZone[lineInt+1][columnInt] == '*')
+                                    {
+                                        intLineRadiusStep = lineInt+1;
+                                        intColumnRadiusStep = columnInt;
+                                        shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                                    }
+                                    else
+                                        if (shipsZone[lineInt+1][columnInt+1] == '*')
+                                        {
+                                            intLineRadiusStep = lineInt+1;
+                                            intColumnRadiusStep = columnInt+1;
+                                            shipsZone[intLineRadiusStep][intColumnRadiusStep] = '-';
+                                        }
+                                        else
+                                            {
+                                                errorRadiusCheck = 1;
+                                            }
+
+            //qDebug()<<"shipsZone[intLineRadiusStep][intColumnRadiusStep]="<<shipsZone[intLineRadiusStep][intColumnRadiusStep];
+//            qDebug()<<"intLineRadiusStep="<<intLineRadiusStep;
+//            qDebug()<<"intColumnRadiusStep="<<intColumnRadiusStep;
+
+        }
+
+        errorRadiusCheck=0;
+        allPointsShips="";
+    }
+
+//        for (int i = 0; i < allPointsShips.size()-2; i++)
+//        {
+//            QString selectedPoint = allPointsShips[i];
+
+//            QString str1 = allPointsShips[i];
+//            QString str2 = allPointsShips[i+1];
+
+//            Ship = Ship+str1+str2;
+
+//            if (i<allPointsShips.size()-2)
+//            {
+
+//                int j = i + 2;
+//                while (j < allPointsShips.size()-1)
+//                {
+//                    if (allPointsShips[i]==allPointsShips[j])
+//                    {
+//                        if (allPointsShips[i+1]==allPointsShips[j+1])
+//                        {
+//                            QString str1 = allPointsShips[i+1];
+//                            QString str2 = QString::number(column);
+
+//                        }
+//                    }
+
+//                    j=j+2;
+//                }
+//            }
+
+
+//        countChecksShips++;
+//    }
+
+
+
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -397,11 +580,12 @@ int main(int argc, char *argv[])
 
     readFile();
     checkAndWriteStringList();
+    checkingShips();
 
     int y = 0;
     while (y<10)
     {
-        qDebug() << shipsZone[y];
+        //qDebug() << shipsZone[y];
         y++;
     }
 
