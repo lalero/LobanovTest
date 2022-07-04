@@ -11,6 +11,8 @@ namespace global
 {
 QStringList linesFile;
 QStringList shipsZone;
+QStringList fakeLineShips;
+QStringList fakeColumnShips;
 QStringList allShips;
 QStringList greenShips;
 QStringList redShips;
@@ -390,12 +392,15 @@ void checkingShips()
     QString usedPointsShips="";
 
     QString allPointsShips="";
+    QString selectPointsShips="";
 
     int countChecksPoints=0;
     int line = 0;
     int column = 0;
 
     //for (int line = 0; line < 10; line++)
+    int countPoint=0;
+
     while (line < 10)
     {
         column = 0;
@@ -408,11 +413,114 @@ void checkingShips()
                 allPointsShips = allPointsShips+str1+str2;
                 countChecksPoints++;
 
+                countPoint++;
+                selectPointsShips = selectPointsShips+str1+str2;
+
+                //Доделать, не работает при крайней 9ой *
+
+                if (column==9)
+                {
+                    if (countPoint !=0)
+                    {
+                        fakeLineShips.append(selectPointsShips);
+                        selectPointsShips="";
+                        countPoint=0;
+                    }
+                }
+
             }
+            else
+                if (countPoint !=0)
+                {
+                    fakeLineShips.append(selectPointsShips);
+                    selectPointsShips="";
+                    countPoint=0;
+                }
+
             column++;
         }
+        selectPointsShips="";
+
         line++;
     }
+
+    line = 0;
+    column = 0;
+    selectPointsShips="";
+    while (column < 10)
+    {
+        line = 0;
+        while (line < 10)
+        {
+            if (shipsZone[line][column]=='*')
+            {
+                QString str1 = QString::number(line);
+                QString str2 = QString::number(column);
+                //allPointsShips = allPointsShips+str1+str2;
+                //countChecksPoints++;
+
+                countPoint++;
+                selectPointsShips = selectPointsShips+str1+str2;
+
+
+                if (line==9)
+                {
+                    if (countPoint !=0)
+                    {
+                        fakeLineShips.append(selectPointsShips);
+                        selectPointsShips="";
+                        countPoint=0;
+                    }
+                }
+
+            }
+            else
+                if (countPoint !=0)
+                {
+                    fakeColumnShips.append(selectPointsShips);
+                    selectPointsShips="";
+                    countPoint=0;
+                }
+
+            line++;
+        }
+        selectPointsShips="";
+
+        column++;
+    }
+
+
+    qDebug()<<fakeLineShips;
+    qDebug()<<fakeColumnShips;
+
+//    int countPoint=0;
+//    for (int i = 0; i < 10; i++)
+//    {
+
+//        for (int j = 0; j < 10; j++)
+//        {
+//            if (shipsZone[i][j]=='*')
+//            {
+
+//                countPoint++;
+
+//                //fakeShips.append(line);
+
+//            }
+//            else
+//            {
+//                if (countPoint !=0)
+//                {
+//                    fakeShips.append(line);
+//                    countPoint=0;
+//                }
+//            }
+
+
+//        }
+
+//    }
+
 
     //while (line < 10)
 
@@ -432,6 +540,13 @@ void checkingShips()
     int intColumnRadiusStep=0;
     int countError = 0;
     QString ship="";
+
+
+    qDebug()<<"line="<<line;
+
+
+
+    /*
 
     while (allPointsShips.size()!=0)
     {
@@ -464,6 +579,8 @@ void checkingShips()
         qDebug()<<"columnInt="<<columnInt;
 
         //qDebug()<<shipsZone[0][3];
+
+
 
         while (errorRadiusCheck==0)
         {
@@ -557,11 +674,16 @@ void checkingShips()
 
         }
 
+
+
         //errorRadiusCheck=0;
         qDebug()<<"ship="<<ship;
         qDebug()<<"allPointsShips="<<allPointsShips;
-        allPointsShips="";
+
+        //allPointsShips="";
     }
+
+    */
 
 
 //        for (int i = 0; i < allPointsShips.size()-2; i++)
@@ -624,7 +746,7 @@ int main(int argc, char *argv[])
     int y = 0;
     while (y<10)
     {
-        qDebug() << shipsZone[y];
+        //qDebug() << shipsZone[y];
         y++;
     }
 
