@@ -16,6 +16,8 @@ QStringList fakeColumnShips;
 QStringList allShips;
 QStringList greenShips;
 QStringList redShips;
+
+QStringList sizeShips;
 }
 
 using namespace global;
@@ -690,10 +692,19 @@ void checkingShips()
     int columnShip=0;
 
     int errorShip=0;
+
+    int error1=0;
+    int error2=0;
+
+    int error3=0;
+    int error4=0;
+
     int countShip1=0;
     int countShip2=0;
     int countShip3=0;
     int countShip4=0;
+
+
 
     while (lineShip<fakeLineShips.size())
     {
@@ -701,7 +712,6 @@ void checkingShips()
         int countPointLineShip=0;
         while (pointShip < fakeLineShips[lineShip].size())
         {
-
             if (fakeLineShips[lineShip].size()==2)
             {
                 QString point1LineShips = fakeLineShips[lineShip][pointShip];
@@ -709,20 +719,47 @@ void checkingShips()
 
                 for (int i = 0; i < fakeColumnShips.size(); i++)
                 {
+                    int countSizeColumnShips = fakeColumnShips[i].size();
+                    //qDebug()<<"countSizeColumnShips="<<countSizeColumnShips;
 
                     //for (int j = 0; j < fakeLineShips[i].size()-1; j++)
                     int j=0;
                     while (j < fakeColumnShips[i].size())
                     {
-                        if ((point1LineShips!=fakeColumnShips[i][j])&&(point2LineShips!=fakeColumnShips[i][j+1]))
-                        {
-//                            qDebug()<<"point1ColumnShips="<<point1ColumnShips;
-//                            qDebug()<<"point2ColumnShips="<<point2ColumnShips;
-//                            qDebug()<<"fakeLineShips[i][j]="<<fakeLineShips[i][j];
-//                            qDebug()<<"fakeLineShips[i][j+1])="<<fakeLineShips[i][j+1];
 
-                            countPointLineShip++;
+                        if ((point1LineShips!=fakeColumnShips[i][j])||(point2LineShips!=fakeColumnShips[i][j+1]))
+                        {
+                            //qDebug()<<"fakeColumnShips[i].size()="<<fakeColumnShips.size();
+
+//                            qDebug()<<"point1LineShips="<<point1LineShips;
+//                            qDebug()<<"point2LineShips="<<point2LineShips;
+//                            qDebug()<<"fakeColumnShips[i][j]="<<fakeColumnShips[i][j];
+//                            qDebug()<<"fakeColumnShips[i][j+1])="<<fakeColumnShips[i][j+1];
+
+//                            if((countSizeColumnShips==2)&&(point1LineShips==fakeColumnShips[i][j])&&(point2LineShips==fakeColumnShips[i][j+1]))
+//                            {
+//                                countPointLineShip++;
+//                            }
+//                            else
+//                            {
+                                error1=1;
+//                            }
+
+                            //countPointLineShip++;
+
                         }
+                        else
+                        {
+                            if((countSizeColumnShips==2)&&((point1LineShips==fakeColumnShips[i][j])||(point2LineShips==fakeColumnShips[i][j+1])))
+                            {
+                                countPointLineShip++;
+                                error2=1;
+                            }
+
+                            //countPointLineShip++;
+
+                        }
+
                         j=j+2;
 
                     }
@@ -731,16 +768,36 @@ void checkingShips()
             }
             else
             {
+
                 countPointLineShip++;
-                qDebug()<<"ELSE";
+
+                //qDebug()<<"ELSE";
             }
 
             pointShip=pointShip+2;
         }
-        qDebug()<<"countPointLineShip="<<countPointLineShip; //мб записывать в стринглист все размеры кораблей
+
+        if ((error1==0)||(error2==1))
+        {
+            QString x = QString::number(countPointLineShip);
+            sizeShips.append(x);
+            countPointLineShip=0;
+        }
+        else
+        {
+            error1=0;
+            error2=0;
+        }
+
+
+        //qDebug()<<"countPointLineShip="<<countPointLineShip; //мб записывать в стринглист все размеры кораблей
 
         lineShip++;
     }
+
+
+
+    ////////////////////////////////////////////
 
     while (columnShip<fakeColumnShips.size())
     {
@@ -750,25 +807,39 @@ void checkingShips()
         {
             if (fakeColumnShips[columnShip].size()==2)
             {
+
                 QString point1ColumnShips = fakeColumnShips[columnShip][pointShip];
                 QString point2ColumnShips = fakeColumnShips[columnShip][pointShip+1];
 
                 for (int i = 0; i < fakeLineShips.size(); i++)
                 {
 
-                    //for (int j = 0; j < fakeLineShips[i].size()-1; j++)
+                    int countSizeLineShips = fakeLineShips[i].size();
+                    //int countColumnLineShips = fakeColumnShips[i].size();
+
+
                     int j=0;
                     while (j < fakeLineShips[i].size())
                     {
-                        if ((point1ColumnShips!=fakeLineShips[i][j])&&(point2ColumnShips!=fakeLineShips[i][j+1]))
+                        if (((point1ColumnShips!=fakeLineShips[i][j])||(point2ColumnShips!=fakeLineShips[i][j+1]))
+                                &&(countSizeLineShips!=2))
                         {
-//                            qDebug()<<"point1ColumnShips="<<point1ColumnShips;
-//                            qDebug()<<"point2ColumnShips="<<point2ColumnShips;
-//                            qDebug()<<"fakeLineShips[i][j]="<<fakeLineShips[i][j];
-//                            qDebug()<<"fakeLineShips[i][j+1])="<<fakeLineShips[i][j+1];
 
                             countPointColumnShip++;
                         }
+                        else
+                        {
+                            error3=1;
+                        }
+
+//                        else
+//                        if((countSizeColumnShips==2)&&((point1LineShips==fakeColumnShips[i][j])||(point2LineShips==fakeColumnShips[i][j+1])))
+//                        {
+//                            countPointLineShip++;
+//                            error2=1;
+//                        }
+
+
                         j=j+2;
 
                     }
@@ -778,18 +849,29 @@ void checkingShips()
             else
             {
                 countPointColumnShip++;
-                qDebug()<<"ELSE";
+                //qDebug()<<"ELSE";
             }
 
             pointShip=pointShip+2;
 
         }
-        qDebug()<<"countPointColumnShip="<<countPointColumnShip;
+
+        if ((error3==0)||(error4==1))
+        {
+            QString x = QString::number(countPointColumnShip);
+            sizeShips.append(x);
+            countPointColumnShip=0;
+        }
+        else
+        {
+            error3=0;
+            error4=0;
+        }
 
         columnShip++;
     }
 
-
+    qDebug()<<"sizeShips="<<sizeShips;
 
 
 
