@@ -691,7 +691,7 @@ void checkingShips()
     int lineShip=0;
     int columnShip=0;
 
-    int errorShip=0;
+    int finalError=0;
 
     int error1=0;
     int error2=0;
@@ -699,10 +699,14 @@ void checkingShips()
     int error3=0;
     int error4=0;
 
-    int countShip1=0;
-    int countShip2=0;
-    int countShip3=0;
-    int countShip4=0;
+    int countRealShip1=0;
+    int countNormalShip1=4;
+    int countRealShip2=0;
+    int countNormalShip2=3;
+    int countRealShip3=0;
+    int countNormalShip3=2;
+    int countRealShip4=0;
+    int countNormalShip4=1;
 
 
 
@@ -777,7 +781,7 @@ void checkingShips()
             pointShip=pointShip+2;
         }
 
-        if ((error1==0)||(error2==1))
+        if (((error1==0)||(error2==1))&&(countPointLineShip!=0)) //Появляются 0 если убрать (countPointLineShip!=0)
         {
             QString x = QString::number(countPointLineShip);
             sizeShips.append(x);
@@ -856,7 +860,7 @@ void checkingShips()
 
         }
 
-        if ((error3==0)||(error4==1))
+        if (((error3==0)||(error4==1))&&(countPointColumnShip!=0))
         {
             QString x = QString::number(countPointColumnShip);
             sizeShips.append(x);
@@ -873,8 +877,101 @@ void checkingShips()
 
     qDebug()<<"sizeShips="<<sizeShips;
 
+//    int countRealShip1=0;
+//    int countNormalShip1=4;
+//    int countRealShip2=0;
+//    int countNormalShip2=3;
+//    int countRealShip3=0;
+//    int countNormalShip3=2;
+//    int countRealShip4=0;
+//    int countNormalShip4=1;
+
+    QString strPointsShip;
+    for (int i = 0; i < sizeShips.size(); i++)
+    {
+        strPointsShip = "";
+
+        for (int j = 0; j < sizeShips[i].size(); j++)
+        {
+            strPointsShip = strPointsShip + sizeShips[i];
+        }
+
+        int lineInt = strPointsShip.toInt();
+
+        if (lineInt==1)
+        {
+            countRealShip1++;
+        }
+        else
+            if (lineInt==2)
+            {
+                countRealShip2++;
+            }
+            else
+                if (lineInt==3)
+                {
+                    countRealShip3++;
+                }
+                else
+                    if (lineInt==4)
+                    {
+                        countRealShip4++;
+                    }
+                    else
+                    {
+                        qDebug()<<"ERRROOOOORRR";
+                        finalError=1;
+                    }
+
+    }
+
+    qDebug()<<"countRealShip1="<<countRealShip1<<" countNormalShip4="<<countNormalShip4;
+    qDebug()<<"countRealShip2="<<countRealShip2<<" countNormalShip2="<<countNormalShip3;
+    qDebug()<<"countRealShip3="<<countRealShip3<<" countNormalShip3="<<countNormalShip2;
+    qDebug()<<"countRealShip4="<<countRealShip4<<" countNormalShip1="<<countNormalShip1;
+
+    if ((countRealShip1!=countNormalShip1)||(countRealShip2!=countNormalShip2)
+            ||(countRealShip3!=countNormalShip3)||(countRealShip4!=countNormalShip4))
+    {
+        finalError=1;
+
+        qDebug()<<"----------------------";
+    }
 
 
+    if (finalError==0)
+    {
+        cout << "It's okay. Ship placement is correct!" << endl;
+    }
+    else
+        if (finalError == 1)
+        {
+        cout << "ERROR! Wrong number of ships!" << endl;
+        }
+
+//    if (countRealShip4==countNormalShip4)
+//    {
+//        countRealShip4++;
+//    }
+//    else
+//        if (countRealShip3==countNormalShip3)
+//        {
+//            countRealShip3++;
+//        }
+//        else
+//            if (countRealShip2==countNormalShip2)
+//            {
+//                countRealShip2++;
+//            }
+//            else
+//                if (countRealShip1==countNormalShip1)
+//                {
+//                    countRealShip1++;
+//                }
+//                else
+//                {
+//                    finalError=1;
+//                }
 
 
     //qDebug()<<"allPointsShips="<<allPointsShips;
