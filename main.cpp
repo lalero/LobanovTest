@@ -500,11 +500,18 @@ void checkingShips()
         column++;
     }
 
-    qDebug()<<fakeLineShips;
-    qDebug()<<fakeColumnShips;
+    qDebug()<<"fakeLineShips="<<fakeLineShips;
+    qDebug()<<"fakeColumnShips="<<fakeColumnShips;
 
-    qDebug()<<"fakeLineShips.size()="<<fakeLineShips.size();
-    qDebug()<<"fakeColumnShips.size()="<<fakeColumnShips.size();
+//    qDebug()<<"fakeLineShips.size()="<<fakeLineShips.size();
+//    qDebug()<<"fakeColumnShips.size()="<<fakeColumnShips.size();
+
+
+    /*
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    //ДЛЯ 2 ЧАСТИ ПРОГРАММЫ
+
 
     int countI=0;
     int countJ=0;
@@ -514,9 +521,6 @@ void checkingShips()
 
     int qUp=0;
     int qDown=0;
-
-    //обновлять fakeLineShips, удалять fakeColumnShips
-
 
     while (kUp<fakeLineShips.size())
     {
@@ -537,7 +541,8 @@ void checkingShips()
             //qDebug()<<"point2LineShips="<<point2LineShips;
 
 
-            while (qUp<fakeColumnShips.size())
+
+            while (qUp<fakeColumnShips.size())//
             {
                 //int q=0;
                 //qDebug()<<"1";
@@ -549,19 +554,83 @@ void checkingShips()
 
                     //qDebug()<<"point1ColumnShips="<<point1ColumnShips;
                     //qDebug()<<"point2ColumnShips="<<point2ColumnShips;
-                    qDebug()<<"fakeColumnShips[qUp].size()="<<fakeColumnShips[qUp].size();
+                    //qDebug()<<"fakeColumnShips[qUp].size()="<<fakeColumnShips[qUp].size();
 
-                    //qDebug()<<"qUp="<<qUp;
+                    //qDebug()<<"kUp="<<kUp;
 
-                    if ((point1LineShips==point1ColumnShips)&&(point2LineShips==point2ColumnShips)&&(fakeColumnShips[qUp].size()>2))
+
+                    //&&(fakeLineShips[qUp].size()>2)
+                    if ((point1LineShips==point1ColumnShips)&&(point2LineShips==point2ColumnShips)&&(fakeLineShips[kUp].size()>2)&&(fakeColumnShips[qUp].size()>2))
                     {
-                        //qDebug()<<"fakeColumnShips[qUp].size()="<<fakeColumnShips[qUp].size();
+                        //qDebug()<<"fakeColumnShips["<<qUp<<"].size()="<<fakeLineShips[qUp].size();
                         //qDebug()<<"point1LineShips="<<point1LineShips;
                         //qDebug()<<"point2LineShips="<<point2LineShips;
-                        //qDebug()<<"point1ColumnShips="<<point1ColumnShips;
-                        //qDebug()<<"point2ColumnShips="<<point2ColumnShips;
 
-                        qDebug()<<"+++";
+
+
+                        QString povtor = point1ColumnShips+point2ColumnShips;
+
+                        //int countSpace = fakeColumnShips[qUp].size();
+
+                        QString noSpace;
+
+                        //for (int i = 0; i <  fakeColumnShips[qUp].size(); i++)
+                        //qDebug()<<"fakeColumnShips[qUp]="<<fakeColumnShips[qUp];
+
+                        int countNoSpace=0;
+                        while (countNoSpace < fakeColumnShips[qUp].size())
+                        {
+//                            QString point1ColumnShips = fakeColumnShips[qUp][qDown];
+//                            QString point2ColumnShips = fakeColumnShips[qUp][qDown+1];
+
+                            //qDebug()<<"point1ColumnShips="<<point1ColumnShips;
+                            //qDebug()<<"point2ColumnShips="<<point2ColumnShips;
+
+//                            qDebug()<<"fakeColumnShips[qUp][countNoSpace]="<<fakeColumnShips[qUp][countNoSpace];
+//                            qDebug()<<"fakeColumnShips[qUp][countNoSpace+1]="<<fakeColumnShips[qUp][countNoSpace+1];
+
+                            if ((fakeColumnShips[qUp][countNoSpace]!=point1ColumnShips)||(fakeColumnShips[qUp][countNoSpace+1]!=point2ColumnShips))
+                            {
+                                noSpace = noSpace + fakeColumnShips[qUp][countNoSpace]+ fakeColumnShips[qUp][countNoSpace+1];
+                                //qDebug()<<"22222222222222222222";
+                            }
+
+                            countNoSpace=countNoSpace+2;
+                        }
+
+//                        QString strSpace;
+//                        for (int i = 0; i <  fakeColumnShips[qUp].size(); i++)
+//                        {
+//                            strSpace = strSpace+" ";
+//                        }
+
+                        //fakeColumnShips[qUp]=strSpace;
+
+                        //тут работаю
+
+                        //qDebug()<<"noSpace="<<noSpace;
+
+                        //QString strX=point1ColumnShips+point2ColumnShips;
+
+                        //все одинаковые плюсовать
+
+                        QString strOld;
+
+                        for (int i = 0; i < fakeLineShips[kUp].size(); i++)
+                        {
+
+                            strOld = strOld + fakeLineShips[kUp][i];
+                        }
+
+                        QString final = strOld+noSpace;
+
+                        //qDebug()<<"final="<<final;
+
+                        //fakeLineShips[kUp]=final;
+
+                        allShips.append(final);
+
+                        //qDebug()<<"+++";
                     }
 
                     //q=q+2;
@@ -574,73 +643,177 @@ void checkingShips()
             }
 
 
-            //qUp=0;
+//            if (qUp != fakeColumnShips.size()-1)
+//            {
+                qUp=0;
+//            }
+
             qDown=0;
             kDown=kDown+2;
         }
+
+
 
         //kDown++;
 
 //        }
 
 
-        qUp=0;
+//        if (qUp != fakeColumnShips.size())
+//        {
+//            qUp=0;
+//        }
+
         kUp++;
 
          //fakeLineShips.removeAll();
     }
 
+    //qDebug()<<"strOld="<<strOld;
 
-//    int countPoint=0;
-//    for (int i = 0; i < 10; i++)
-//    {
+    qDebug()<<"allShips="<<allShips;
+//    qDebug()<<"fakeColumnShips="<<fakeColumnShips;
 
-//        for (int j = 0; j < 10; j++)
-//        {
-//            if (shipsZone[i][j]=='*')
-//            {
+///////////////////////////////////////////////////////////////////////
 
-//                countPoint++;
-
-//                //fakeShips.append(line);
-
-//            }
-//            else
-//            {
-//                if (countPoint !=0)
-//                {
-//                    fakeShips.append(line);
-//                    countPoint=0;
-//                }
-//            }
+    */
 
 
-//        }
-
-//    }
 
 
-    //while (line < 10)
+    //int pointShip=0;
 
-    qDebug()<<"allPointsShips="<<allPointsShips;
+//    int qUp=0;
+//    int qDown=0;
+
+    int lineShip=0;
+    int columnShip=0;
+
+    int errorShip=0;
+    int countShip1=0;
+    int countShip2=0;
+    int countShip3=0;
+    int countShip4=0;
+
+    while (lineShip<fakeLineShips.size())
+    {
+        int pointShip=0;
+        int countPointLineShip=0;
+        while (pointShip < fakeLineShips[lineShip].size())
+        {
+
+            if (fakeLineShips[lineShip].size()==2)
+            {
+                QString point1LineShips = fakeLineShips[lineShip][pointShip];
+                QString point2LineShips = fakeLineShips[lineShip][pointShip+1];
+
+                for (int i = 0; i < fakeColumnShips.size(); i++)
+                {
+
+                    //for (int j = 0; j < fakeLineShips[i].size()-1; j++)
+                    int j=0;
+                    while (j < fakeColumnShips[i].size())
+                    {
+                        if ((point1LineShips!=fakeColumnShips[i][j])&&(point2LineShips!=fakeColumnShips[i][j+1]))
+                        {
+//                            qDebug()<<"point1ColumnShips="<<point1ColumnShips;
+//                            qDebug()<<"point2ColumnShips="<<point2ColumnShips;
+//                            qDebug()<<"fakeLineShips[i][j]="<<fakeLineShips[i][j];
+//                            qDebug()<<"fakeLineShips[i][j+1])="<<fakeLineShips[i][j+1];
+
+                            countPointLineShip++;
+                        }
+                        j=j+2;
+
+                    }
+
+                }
+            }
+            else
+            {
+                countPointLineShip++;
+                qDebug()<<"ELSE";
+            }
+
+            pointShip=pointShip+2;
+        }
+        qDebug()<<"countPointLineShip="<<countPointLineShip; //мб записывать в стринглист все размеры кораблей
+
+        lineShip++;
+    }
+
+    while (columnShip<fakeColumnShips.size())
+    {
+        int pointShip=0;
+        int countPointColumnShip=0;
+        while (pointShip < fakeColumnShips[columnShip].size())
+        {
+            if (fakeColumnShips[columnShip].size()==2)
+            {
+                QString point1ColumnShips = fakeColumnShips[columnShip][pointShip];
+                QString point2ColumnShips = fakeColumnShips[columnShip][pointShip+1];
+
+                for (int i = 0; i < fakeLineShips.size(); i++)
+                {
+
+                    //for (int j = 0; j < fakeLineShips[i].size()-1; j++)
+                    int j=0;
+                    while (j < fakeLineShips[i].size())
+                    {
+                        if ((point1ColumnShips!=fakeLineShips[i][j])&&(point2ColumnShips!=fakeLineShips[i][j+1]))
+                        {
+//                            qDebug()<<"point1ColumnShips="<<point1ColumnShips;
+//                            qDebug()<<"point2ColumnShips="<<point2ColumnShips;
+//                            qDebug()<<"fakeLineShips[i][j]="<<fakeLineShips[i][j];
+//                            qDebug()<<"fakeLineShips[i][j+1])="<<fakeLineShips[i][j+1];
+
+                            countPointColumnShip++;
+                        }
+                        j=j+2;
+
+                    }
+
+                }
+            }
+            else
+            {
+                countPointColumnShip++;
+                qDebug()<<"ELSE";
+            }
+
+            pointShip=pointShip+2;
+
+        }
+        qDebug()<<"countPointColumnShip="<<countPointColumnShip;
+
+        columnShip++;
+    }
+
+
+
+
+
+
+
+    //qDebug()<<"allPointsShips="<<allPointsShips;
     //qDebug()<<"allPointsShips.size()="<<allPointsShips.size();
-    qDebug()<<"countChecksPoints="<<countChecksPoints;
+    //qDebug()<<"countChecksPoints="<<countChecksPoints;
 
-    QString Ship="";
+//    QString Ship="";
 
-    int countChecksShips=0;
-    int i = 0;
-    //int j = 0;
-    QString lineStr;
-    QString columnStr;
-    int errorRadiusCheck=0;
-    int intLineRadiusStep=0;
-    int intColumnRadiusStep=0;
-    int countError = 0;
-    QString ship="";
+//    int countChecksShips=0;
+//    int i = 0;
+//    int j = 0;
+//    QString lineStr;
+//    QString columnStr;
+//    int errorRadiusCheck=0;
+//    int intLineRadiusStep=0;
+//    int intColumnRadiusStep=0;
+//    int countError = 0;
+//    QString ship="";
 
 
-    qDebug()<<"line="<<line;
+    //qDebug()<<"allShips="<<allShips;
 
 
 
