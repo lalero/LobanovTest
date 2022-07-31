@@ -391,6 +391,189 @@ void checkingShips()
     //QStringList shipsZone;
     //QStringList allShips;
 
+    // Проверка на близлежащие клетки
+
+    int lineCheck = 0;
+    int columnCheck = 0;
+    int errorCheck=0;
+
+    while (lineCheck < 10)
+    {
+        columnCheck = 0;
+        while (columnCheck < 10)
+        {
+            if (shipsZone[lineCheck][columnCheck]=='*')
+            {
+                QString str1 = QString::number(lineCheck);
+                QString str2 = QString::number(columnCheck);
+
+//                qDebug()<<"shipsZone[lineCheck][columnCheck]="<<shipsZone[lineCheck][columnCheck];
+//                qDebug()<<"shipsZone[lineCheck-1][columnCheck-1]="<<shipsZone[lineCheck-1][columnCheck-1];
+//                qDebug()<<"shipsZone[lineCheck-1][columnCheck+1]="<<shipsZone[lineCheck-1][columnCheck+1];
+//                qDebug()<<"shipsZone[lineCheck+1][columnCheck-1]="<<shipsZone[lineCheck+1][columnCheck-1];
+//                qDebug()<<"shipsZone[lineCheck+1][columnCheck+1]="<<shipsZone[lineCheck+1][columnCheck+1];
+
+                if ((lineCheck==0)&&(columnCheck==0))
+                {
+                    if (shipsZone[lineCheck+1][columnCheck+1]=='*')
+                    {
+                        qDebug()<<"11111";
+                        errorCheck++;
+                    }
+
+                    if ((shipsZone[lineCheck][columnCheck+1]=='*')&&(shipsZone[lineCheck+1][columnCheck]=='*'))
+                    {
+                        qDebug()<<"22222";
+                        errorCheck++;
+                    }
+                }
+                else
+                    if ((lineCheck==0)&&(columnCheck==9))
+                    {
+                        if (shipsZone[lineCheck+1][columnCheck-1]=='*')
+                        {
+                            qDebug()<<"111111";
+                            errorCheck++;
+                        }
+
+                        if ((shipsZone[lineCheck][columnCheck-1]=='*')&&(shipsZone[lineCheck+1][columnCheck]=='*'))
+                        {
+                            qDebug()<<"222222";
+                            errorCheck++;
+                        }
+                    }
+                    else
+                        if ((lineCheck==9)&&(columnCheck==9))
+                        {
+                            if (shipsZone[lineCheck-1][columnCheck-1]=='*')
+                            {
+                                qDebug()<<"3";
+                                errorCheck++;
+                            }
+
+                            if ((shipsZone[lineCheck-1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck-1]=='*'))
+                            {
+                                qDebug()<<"4";
+                                errorCheck++;
+                            }
+                        }
+                        else
+                            if ((lineCheck==9)&&(columnCheck==0))
+                            {
+                                if (shipsZone[lineCheck-1][columnCheck+1]=='*')
+                                {
+                                    qDebug()<<"5";
+                                    errorCheck++;
+                                }
+
+                                if ((shipsZone[lineCheck-1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck+1]=='*'))
+                                {
+                                    qDebug()<<"6";
+                                    errorCheck++;
+                                }
+                            }
+                    else
+                if (lineCheck==0)
+                {
+                    if ((shipsZone[lineCheck+1][columnCheck-1]=='*')||(shipsZone[lineCheck+1][columnCheck+1]=='*'))
+                    {
+                        qDebug()<<"1";
+                        errorCheck++;
+                    }
+
+                    if (((shipsZone[lineCheck][columnCheck+1]=='*')&&(shipsZone[lineCheck+1][columnCheck]=='*'))
+                            ||((shipsZone[lineCheck+1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck-1]=='*')))
+                    {
+                        qDebug()<<"2";
+                        errorCheck++;
+                    }
+                }
+                else
+                if (lineCheck==9)
+                {
+                    if ((shipsZone[lineCheck-1][columnCheck-1]=='*')||(shipsZone[lineCheck-1][columnCheck+1]=='*'))
+                    {
+                        qDebug()<<"11";
+                        errorCheck++;
+                    }
+
+                    if (((shipsZone[lineCheck][columnCheck-1]=='*')&&(shipsZone[lineCheck-1][columnCheck]=='*'))
+                            ||((shipsZone[lineCheck-1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck+1]=='*')))
+                    {
+                        qDebug()<<"22";
+                        errorCheck++;
+                    }
+                }
+                else
+                if (columnCheck==0)
+                {
+//                    qDebug()<<"23131323";
+//                    qDebug()<<"lineCheck="<<lineCheck;
+//                    qDebug()<<"columnCheck="<<columnCheck;
+                    if ((shipsZone[lineCheck-1][columnCheck+1]=='*')||(shipsZone[lineCheck+1][columnCheck+1]=='*'))
+                    {
+                        qDebug()<<"111";
+                        errorCheck++;
+                    }
+
+                    if (((shipsZone[lineCheck-1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck+1]=='*'))
+                            ||((shipsZone[lineCheck][columnCheck+1]=='*')&&(shipsZone[lineCheck+1][columnCheck]=='*')))
+                    {
+                        qDebug()<<"222";
+                        errorCheck++;
+                    }
+                }
+                else
+                if (columnCheck==9)
+                {
+                    if ((shipsZone[lineCheck-1][columnCheck-1]=='*')||(shipsZone[lineCheck+1][columnCheck-1]=='*'))
+                    {
+                        qDebug()<<"1111";
+                        errorCheck++;
+                    }
+
+                    if (((shipsZone[lineCheck][columnCheck-1]=='*')&&(shipsZone[lineCheck-1][columnCheck]=='*'))
+                            ||((shipsZone[lineCheck+1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck-1]=='*')))
+                    {
+                        qDebug()<<"2222";
+                        errorCheck++;
+                    }
+                }
+
+                else
+                {
+                    if ((shipsZone[lineCheck-1][columnCheck-1]=='*')||(shipsZone[lineCheck-1][columnCheck+1]=='*')
+                            ||(shipsZone[lineCheck+1][columnCheck-1]=='*')||(shipsZone[lineCheck+1][columnCheck+1]=='*'))
+                    {
+                        qDebug()<<"111111111111";
+                        errorCheck++;
+                    }
+
+                    if (((shipsZone[lineCheck][columnCheck-1]=='*')&&(shipsZone[lineCheck-1][columnCheck]=='*'))
+                            ||((shipsZone[lineCheck-1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck+1]=='*'))
+                            ||((shipsZone[lineCheck][columnCheck+1]=='*')&&(shipsZone[lineCheck+1][columnCheck]=='*'))
+                            ||((shipsZone[lineCheck+1][columnCheck]=='*')&&(shipsZone[lineCheck][columnCheck-1]=='*')))
+                    {
+                        qDebug()<<"2222222222";
+                        errorCheck++;
+                    }
+                }
+
+                //+проверка угловых
+
+            }
+
+
+            columnCheck++;
+        }
+        //selectPointsShips="";
+
+        lineCheck++;
+    }
+
+
+    // Проверка на близлежащие клетки
+
     QString usedPointsShips="";
 
     QString allPointsShips="";
@@ -708,18 +891,95 @@ void checkingShips()
     int countRealShip4=0;
     int countNormalShip4=1;
 
+    /* ------переделать в поиск по shipsZone
+
+    //int q=lineShip;
+    while(lineShip<fakeLineShips.size())
+    {
+        int pointShip=0;
 
 
+        while (pointShip < fakeLineShips[lineShip].size())
+        {
+            QString point1LineShips = fakeLineShips[lineShip][pointShip];
+            QString point2LineShips = fakeLineShips[lineShip][pointShip+1];
+            int intPoint1LineShips = point1LineShips.toInt();
+            int intPoint2LineShips = point2LineShips.toInt();
+
+//            qDebug()<<"intPoint1LineShips="<<intPoint1LineShips;
+//            qDebug()<<"intPoint2LineShips="<<intPoint2LineShips;
+
+            int q=pointShip;
+            while (q<fakeLineShips.size())
+            {
+
+                int p=0;
+                while (p<fakeLineShips[q].size())
+                {
+                    QString test1LineShips = fakeLineShips[q][p];
+                    QString test2LineShips = fakeLineShips[q][p+1];
+                    int intTest1LineShips = point1LineShips.toInt();
+                    int intTest2LineShips = point2LineShips.toInt();
+
+
+//                    if((intPoint1LineShips==+1)&&(intPoint2LineShips==))
+//                    {
+
+//                    }
+
+                    p=p+2;
+                }
+
+                q++;
+            }
+
+            pointShip = pointShip+2;
+        }
+//                if ((q!=now)&&(q+1!=now+1))
+//                {
+//                    qDebug()<<"point1LineShips="<<point1LineShips;
+//                    qDebug()<<"point2LineShips="<<point2LineShips;
+//                }
+
+        lineShip++;
+    }
+
+    */
+
+
+    lineShip =0;
     while (lineShip<fakeLineShips.size())
     {
         int pointShip=0;
         int countPointLineShip=0;
+
         while (pointShip < fakeLineShips[lineShip].size())
         {
+            QString point1LineShips = fakeLineShips[lineShip][pointShip];
+            QString point2LineShips = fakeLineShips[lineShip][pointShip+1];
+
+            //qDebug()<<"point1LineShips="<<point1LineShips;
+            //qDebug()<<"point2LineShips="<<point2LineShips;
+
+//            int now = pointShip;
+            //int now2 = pointShip+1;
+
+
+
+//            for (int i = 0; i < fakeLineShips.size(); i++)
+//            {
+//                int q=0;
+//                while(q<fakeLineShips[i].size())
+//                {
+//                    if ()
+
+//                    q=q+2;
+//                }
+//            }
+
             if (fakeLineShips[lineShip].size()==2)
             {
-                QString point1LineShips = fakeLineShips[lineShip][pointShip];
-                QString point2LineShips = fakeLineShips[lineShip][pointShip+1];
+
 
                 for (int i = 0; i < fakeColumnShips.size(); i++)
                 {
@@ -730,6 +990,8 @@ void checkingShips()
                     int j=0;
                     while (j < fakeColumnShips[i].size())
                     {
+
+
 
                         if ((point1LineShips!=fakeColumnShips[i][j])||(point2LineShips!=fakeColumnShips[i][j+1]))
                         {
@@ -756,6 +1018,7 @@ void checkingShips()
                         {
                             if((countSizeColumnShips==2)&&((point1LineShips==fakeColumnShips[i][j])||(point2LineShips==fakeColumnShips[i][j+1])))
                             {
+
                                 countPointLineShip++;
                                 error2=1;
                             }
@@ -772,6 +1035,21 @@ void checkingShips()
             }
             else
             {
+//                QString point1LineShips = fakeLineShips[lineShip][pointShip];
+//                QString point2LineShips = fakeLineShips[lineShip][pointShip+1];
+
+
+
+//                for (int i = 0; i < fakeColumnShips.size(); i++)
+//                {
+//                    int q=0;
+//                    while(q<fakeColumnShips[i].size())
+//                    {
+
+
+//                        q=q+2;
+//                    }
+//                }
 
                 countPointLineShip++;
 
